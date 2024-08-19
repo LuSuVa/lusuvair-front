@@ -12,16 +12,25 @@ import { AuthService } from '../auth.service';
 })
 export class LayoutComponent implements OnInit {
   isLoggedIn: boolean = false;
+  isAdmin: boolean = false
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.checkLoginStatus();
     this.router.events.subscribe(() => {
       this.checkLoginStatus();
+      this.checkRole(); // Vous pouvez combiner les deux vérifications
     });
   }
 
+  checkRole(){
+    const role= this.authService.getAuthRole()
+    if(role.includes('ROLE_ADMIN')){
+      this.isAdmin = true
+    } else{
+      this.isAdmin = false
+    }
+  }
   checkLoginStatus() {
     const token = this.authService.getAuthToken();
     if (token !== null && token !== '') {
@@ -31,9 +40,11 @@ export class LayoutComponent implements OnInit {
     }
   }
 
-  logout() {
-    this.authService.setAuthToken('');  // Efface le jeton d'authentification
-    this.isLoggedIn = false;
-    this.router.navigate(['/']);  // Redirige vers la page d'accueil ou de login après déconnexion
-  }
+logout() {
+  this.authService.setAuthToken('');
+  this.authService.setAuthRole([]); // Réinitialiser les rôles à un tableau vide
+  this.isLoggedIn = false;
+  this.checkRole(); // Re-vérifier les rôles après déconnexion
+  this.router.navigate(['/']);
+}
 }

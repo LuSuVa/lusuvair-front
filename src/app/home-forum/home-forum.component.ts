@@ -15,8 +15,6 @@ export class HomeForumComponent implements OnInit {
   constructor(private authService : AuthService){}
 
   ngOnInit(){
-    const roles = this.authService.getAuthRole();
-    console.log(roles)
-    this.isAdmin= roles.includes('ROLE_ADMIN')
+
   }
 }
