@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,11 +10,36 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  getAuthToken(): string {
+    return localStorage.getItem('jwt-token') || '';
+  }
+
+  setAuthToken(token: string) {
+    localStorage.setItem('jwt-token', token);
+  }
+
+  register(body: {
+    email: string;
+    password: string;
+    lastName: string;
+    firstName: string;
+  }) {
+    return this.http.post(`${this.url}/register`, body).pipe(
+      tap((value: any) => {
+        if (value.token) {
+          this.setAuthToken(value.token);
+        }
+      })
+    );
+  }
+
   login(body: { email: string; password: string }) {
-    const subscription = this.http
-      .post(`${this.url}/login`, body)
-      .subscribe((value) => {
-        console.log(value);
-      });
+    return this.http.post(`${this.url}/login`, body).pipe(
+      tap((value: any) => {
+        if (value.token) {
+          this.setAuthToken(value.token);
+        }
+      })
+    );
   }
 }
