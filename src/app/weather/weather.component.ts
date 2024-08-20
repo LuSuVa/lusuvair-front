@@ -1,12 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Weather, WeatherService } from '../weather.service';
 
 @Component({
   selector: 'app-weather',
-  standalone: true,
-  imports: [],
   templateUrl: './weather.component.html',
-  styleUrl: './weather.component.css'
+  styleUrls: ['./weather.component.css'],
 })
-export class WeatherComponent {
+export class WeatherComponent implements OnInit {
+  weatherData: Weather[] = [];
 
+  constructor(private weatherService: WeatherService) {}
+
+  ngOnInit(): void {
+    this.weatherService.getWeatherData().subscribe(
+      (data: Weather[]) => {
+        this.weatherData = data;
+      },
+      (error) => {
+        console.error('Error fetching weather data', error);
+      }
+    );
+  }
 }
