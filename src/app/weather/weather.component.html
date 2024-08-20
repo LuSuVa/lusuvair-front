@@ -1,1 +1,40 @@
-<p>weather works!</p>
+<div class="flex justify-center">
+  <div class="flex justify-center bg-violet-200 rounded-full p-4 gap-4">
+    <select class="bg-transparent" [(ngModel)]="research">
+      <option value="" disabled selected>Choisissez une comune</option>
+      <option value="Nantes">Nantes</option>
+      <option value="Angers">Angers</option>
+      <option value="Le-Mans">Le-Mans</option>
+      <option value="Saint-Nazaire">Saint-Nazaire</option>
+      <option value="Roche-Sur-Yon">Roche-Sur-Yon</option>
+      <option value="Cholet">Cholet</option>
+      <option value="Rezé">Rezé</option>
+    </select>
+    <button (click)="searchWeather()">
+      <i class="fa fa-search"></i>
+    </button>
+  </div>
+</div>
+
+<div class="weather-container">
+  <div *ngIf="weatherData" class="weather-info">
+    <h2>{{ weatherData.municipality.name }}</h2>
+    <p>Date: {{ weatherData.date }}</p>
+    <p>Température: {{ weatherData.temperature }}°C</p>
+    <p>Humidité: {{ weatherData.humidity }}%</p>
+    <p>Pression: {{ weatherData.atmosphericPressure }} hPa</p>
+    <p>Vent: {{ weatherData.wind }} km/h</p>
+    <p>{{ weatherData.type }}</p>
+    <p>Probabilité de pluie: {{ weatherData.probaRain }}%</p>
+    <p class="wind-direction">
+      <span
+        class="arrow"
+        [ngStyle]="{
+          transform: 'rotate(' + (weatherData.dirWind + 90) + 'deg)'
+        }"
+        >&#10148;</span
+      >
+      Direction du vent : {{ weatherData.dirWind }}°
+    </p>
+  </div>
+</div>
