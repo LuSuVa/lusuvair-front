@@ -59,6 +59,8 @@ export class AuthService {
     return this.http.post(`${this.url}/login`, body).pipe(
       tap((value: any) => {
         if (value.token) {
+          console.log(value.role);
+
           this.setAuthToken(value.token);
         }
         console.log(value)
