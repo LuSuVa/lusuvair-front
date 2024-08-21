@@ -1,0 +1,28 @@
+.weather-container {
+  background-color: #e8ffe4;
+  border: 2px solid #6aa84f;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.wind-direction-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wind-direction {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+}
+
+.arrow {
+  display: inline-block;
+  font-size: 24px;
+  margin-right: 10px;
+  color: #2e7d32;
+  transition: transform 0.3s ease;
+}
