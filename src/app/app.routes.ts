@@ -11,4 +11,5 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'forum', component: HomeForumComponent },
   { path: 'detailsSubject', component: DetailsSubjectComponent },
+  { path: 'weather', component: WeatherComponent },
 ];

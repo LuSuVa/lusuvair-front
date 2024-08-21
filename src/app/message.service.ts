@@ -5,15 +5,10 @@ import { tap } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ForumService {
+export class MessageService {
   private url = 'http://localhost:8080/messages';
 
   constructor(private http: HttpClient) {}
-
-
-  // setMessage(message: string){
-
-  // }
 
   sendMessage(body: { id: number, message: string }) {
     return this.http.post(`${this.url}`, body).pipe(
