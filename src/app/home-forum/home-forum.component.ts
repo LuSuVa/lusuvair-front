@@ -13,14 +13,21 @@ import { ForumsService } from '../forums.service';
   templateUrl: './home-forum.component.html',
   styleUrl: './home-forum.component.css'
 })
-export class HomeForumComponent {
+export class HomeForumComponent implements OnInit{
   isModalOpen : boolean = false
   isAdmin: boolean = false
   newSubjectDescription : string =''
   newSubjectTitle = '';
+  isLoggedIn :boolean = false
   subjects :{title:string, description:string}[]=[]
-  constructor(private forumService : ForumsService, private router: Router){}
+  constructor(private forumService : ForumsService, private authService : AuthService, private router: Router){}
 
+ngOnInit(){
+  const token = this.authService.getAuthToken()
+  if(token){
+    this.isLoggedIn= !this.isLoggedIn
+  }
+}
 
   openModal(){
     this.isModalOpen= true
