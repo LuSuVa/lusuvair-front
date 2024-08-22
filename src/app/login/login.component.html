@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" (ngSubmit)="submit()" class="max-w-sm mx-auto">
+<form [formGroup]="loginForm" (ngSubmit)="submit()" class="max-w-sm mx-auto pt-28">
   <div class="mb-5">
     <label for="email" class="block mb-2 text-sm font-medium text-gray-900"
       >Email
@@ -49,9 +49,25 @@
     <button
       type="submit"
       [disabled]="!loginForm.valid"
-      class="bg-blue-500 hover:bg-blue-700 disabled:bg-gray-500 text-white font-bold py-2 px-4 rounded"
+      class="bg-blue-500 hover:bg-blue-700 disabled:bg-gray-800 cursor-pointer text-white font-bold py-2 px-4 rounded"
     >
       Se connecter
     </button>
   </div>
 </form>
+<div class="space-y-8 pr-80 pl-80 pt-36">
+  <div class="border p-4 rounded-md shadow-md flex justify-between items-end bg-green-100 rounded-3xl">
+    <div>
+      <h2 class="text-xl font-semibold">Sujet 1</h2>
+      <p class="mt-5 ml-28 text-gray-600">Début de la description pour le sujet 2.</p>
+    </div>
+    <button [routerLink]="['/detailsSubject']" class="text-blue-500 hover:text-blue-700 font-bold text-3xl pr-3">+</button>
+  </div>
+  <div class="border p-4 rounded-md shadow-md flex justify-between items-end bg-green-100 rounded-3xl">
+    <div>
+      <h2 class="text-xl font-semibold">Sujet 1</h2>
+      <p class="mt-5 ml-28 text-gray-600">Début de la description pour le sujet 2.</p>
+    </div>
+    <button [routerLink]="['/detailsSubject']" class="text-blue-500 hover:text-blue-700 font-bold text-3xl pr-3">+</button>
+  </div>
+</div>

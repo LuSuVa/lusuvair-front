@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ForumService } from '../forum.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-details-subject',
@@ -13,14 +13,14 @@ export class DetailsSubjectComponent {
   messageForm: FormGroup;
   thumbsUp: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private forumService: ForumService) {
+  constructor(private formBuilder: FormBuilder, private messageService: MessageService) {
     this.messageForm = this.formBuilder.group({
       message: '' // Le champ de message
     });
   }
 
   onClickLike(id: number) {
-    this.forumService.like(id).subscribe(response => {
+    this.messageService.like(id).subscribe(response => {
       this.thumbsUp = !this.thumbsUp; // Toggle the like state
     });
   }
@@ -34,7 +34,7 @@ export class DetailsSubjectComponent {
         message: messageContent
       };
 
-      this.forumService.sendMessage(messageData).subscribe(response => {
+      this.messageService.sendMessage(messageData).subscribe(response => {
         console.log('Message envoyé avec succès', response);
         this.messageForm.reset(); // Réinitialise le formulaire après envoi
       }, error => {
