@@ -25,6 +25,7 @@
       {{ airQuality.municipality.name }} - {{ airQuality.date }}
     </h3>
     <ul class="space-y-2">
+      <li>AQI: {{ airQuality.aqi }}</li>
       <li *ngFor="let particle of airQuality.particles" class="text-lg">
         <span class="font-semibold">{{ particle.name }}:</span>
         {{ particle.quantity }}

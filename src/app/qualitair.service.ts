@@ -32,6 +32,7 @@ export interface Municipality {
 
 export interface AirQualityResponse {
   date: string;
+  aqi: number;
   municipality: Municipality;
   particles: Particle[];
 }
