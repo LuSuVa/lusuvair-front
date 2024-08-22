@@ -1,6 +1,12 @@
 <div class="flex justify-center">
-  <div class="flex justify-center items-center bg-violet-200 rounded-full p-4 w-[30%] gap-x-4">
-    <select class="bg-transparent outline-none text-lg w-[90%]" [(ngModel)]="research" (change)="searchWeather()">
+  <div
+    class="flex justify-center items-center bg-violet-200 rounded-full p-4 w-[30%] gap-x-4"
+  >
+    <select
+      class="bg-transparent outline-none text-lg w-[90%]"
+      [(ngModel)]="research"
+      (change)="searchWeather()"
+    >
       <option value="" disabled selected>Choisissez une commune</option>
       <option value="Nantes">Nantes</option>
       <option value="Angers">Angers</option>
@@ -12,27 +18,27 @@
     </select>
   </div>
 </div>
-<div *ngIf="research" class="space-y-8 p-14 w-[60%] mx-auto h-[90%]" >
-<div class="weather-container flex justify-center  pb-60">
-  <div *ngIf="weatherData" class="weather-info pl-20  text-xl">
-    <h2 class="font-bold pb-10 pl-10">{{ weatherData.municipality.name }}</h2>
-    <p>Date: {{ weatherData.date }}</p>
-    <p>Température: {{ weatherData.temperature }}°C</p>
-    <p>Humidité: {{ weatherData.humidity }}%</p>
-    <p>Pression: {{ weatherData.atmosphericPressure }} hPa</p>
-    <p>Vent: {{ weatherData.wind }} km/h</p>
-    <p>{{ weatherData.type }}</p>
-    <p>Probabilité de pluie: {{ weatherData.probaRain }}%</p>
-    <p class="wind-direction">
-      <span
-        class="arrow "
-        [ngStyle]="{
-          transform: 'rotate(' + (weatherData.dirWind + 90) + 'deg)'
-        }"
-        >&#10148;</span
-      >
-      Direction du vent : {{ weatherData.dirWind }}°
-    </p>
-  </div>
+<div *ngIf="research" class="space-y-8 p-14 w-[60%] mx-auto h-[90%]">
+  <div class="weather-container flex justify-center pb-60">
+    <div *ngIf="weatherData" class="weather-info pl-20 text-xl">
+      <h2 class="font-bold pb-10 pl-10">{{ weatherData.municipality.name }}</h2>
+      <p>Date: {{ weatherData.date }}</p>
+      <p>Température: {{ weatherData.temperature }}°C</p>
+      <p>Humidité: {{ weatherData.humidity }}%</p>
+      <p>Pression: {{ weatherData.atmosphericPressure }} hPa</p>
+      <p>Vent: {{ weatherData.wind }} km/h</p>
+      <p>{{ weatherData.type }}</p>
+      <p>Probabilité de pluie: {{ weatherData.probaRain }}%</p>
+      <p class="wind-direction">
+        <span
+          class="arrow"
+          [ngStyle]="{
+            transform: 'rotate(' + (weatherData.dirWind + 90) + 'deg)'
+          }"
+          >&#10148;</span
+        >
+        Direction du vent : {{ weatherData.dirWind }}°
+      </p>
+    </div>
   </div>
 </div>

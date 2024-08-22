@@ -37,6 +37,13 @@
           </li>
           <li *ngIf="isLoggedIn">
             <a
+              [routerLink]="['/airQuality']"
+              class="block py-2 px-3 rounded underline"
+              >Votre qualit'air</a
+            >
+          </li>
+          <li *ngIf="isLoggedIn">
+            <a
               [routerLink]="['/weather']"
               routerLinkActive="font-bold underline"
               class="block py-2 px-3 rounded"
