@@ -10,7 +10,7 @@ export class MessageService {
 
   constructor(private http: HttpClient) {}
 
-  sendMessage(body: { id: number, message: string }) {
+  sendMessage(body: { sectionId: number, message: string }) {
     return this.http.post(`${this.url}`, body).pipe(
       tap((value: any) => {
         console.log('Message envoyé:', value);

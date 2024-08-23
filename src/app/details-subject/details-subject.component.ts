@@ -30,7 +30,7 @@ export class DetailsSubjectComponent {
 
     if (messageContent) {
       const messageData = {
-        id: 1, // Remplacez par l'ID du sujet ou autre identifiant pertinent
+        sectionId: 1, // Remplacez par l'ID du sujet ou autre identifiant pertinent
         message: messageContent
       };
 

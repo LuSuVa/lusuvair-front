@@ -9,35 +9,47 @@ import { ForumsService } from '../forums.service';
 @Component({
   selector: 'app-home-forum',
   standalone: true,
-  imports: [CommonModule,RouterLink, FormsModule],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './home-forum.component.html',
-  styleUrl: './home-forum.component.css'
+  styleUrl: './home-forum.component.css',
 })
-export class HomeForumComponent {
-  isModalOpen : boolean = false
-  isAdmin: boolean = false
-  newSubjectDescription : string =''
+export class HomeForumComponent implements OnInit {
+  isModalOpen: boolean = false;
+  isAdmin: boolean = false;
+  newSubjectDescription: string = '';
   newSubjectTitle = '';
-  subjects :{title:string, description:string}[]=[]
-  constructor(private forumService : ForumsService, private router: Router){}
+  subjects: { title: string; content: string }[] = [];
+  constructor(private forumService: ForumsService, private router: Router) {}
 
-
-  openModal(){
-    this.isModalOpen= true
+  ngOnInit() {
+    this.getSubjects();
   }
-  closeModal(){
-    this.isModalOpen=false
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+  closeModal() {
+    this.isModalOpen = false;
   }
   createSubject() {
     const subjectBody = {
-      title: this.newSubjectTitle|| '',
-      description: this.newSubjectDescription|| '',
-    }
+      title: this.newSubjectTitle || '',
+      content: this.newSubjectDescription || '',
+    };
     if (this.newSubjectTitle && this.newSubjectDescription) {
-      this.forumService.sendNewSubject(subjectBody)
-      this.newSubjectTitle = '';
-      this.newSubjectDescription = '';
-      this.closeModal();
+      this.forumService.sendNewSubject(subjectBody).subscribe((value) => {
+        this.newSubjectTitle = '';
+        this.newSubjectDescription = '';
+        this.closeModal();
+      });
     }
+  }
+
+  getSubjects(){
+    this.forumService.getSubject().subscribe(
+      (subjects: {title:string; content:string}[])=>{
+        this.subjects=subjects
+      }
+    )
   }
 }
