@@ -25,6 +25,7 @@ export class HomeForumComponent implements OnInit {
     this.getSubjects();
   }
 
+
   openModal() {
     this.isModalOpen = true;
   }

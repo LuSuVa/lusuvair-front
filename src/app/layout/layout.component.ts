@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
+import { RouterLink, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, RouterModule],
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css']
 })
@@ -45,6 +45,6 @@ logout() {
   this.authService.setAuthRole([]); // Réinitialiser les rôles à un tableau vide
   this.isLoggedIn = false;
   this.checkRole(); // Re-vérifier les rôles après déconnexion
-  this.router.navigate(['/']);
+  this.router.navigate(['/login']);
 }
 }

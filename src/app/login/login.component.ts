@@ -5,13 +5,13 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SubscribeManagementComponent } from '../subscribe-management/subscribe-management.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -45,8 +45,9 @@ export class LoginComponent extends SubscribeManagementComponent {
       password: this.loginForm.value.password || '',
     };
     const subscription = this.authService.login(loginBody).subscribe(() => {
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/forum');
     });
     this.addSubscription(subscription);
+    // this.router.navigate(['/forum']);
   }
 }

@@ -3,6 +3,7 @@
   border: 2px solid #6aa84f;
   border-radius: 10px;
   padding: 20px;
+  padding-bottom: 5%;
   margin: 20px 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -17,12 +18,17 @@
   display: flex;
   align-items: center;
   font-size: 18px;
+  margin-top: 20px;
+  margin-left: -43px;
+  font-size: 1.1em;
+  font-weight: 500;
 }
 
 .arrow {
   display: inline-block;
-  font-size: 24px;
-  margin-right: 10px;
+  font-weight: 600;
+  margin-right: 20px;
   color: #2e7d32;
+
   transition: transform 0.3s ease;
 }
