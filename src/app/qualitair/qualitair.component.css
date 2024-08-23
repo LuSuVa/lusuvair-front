@@ -27,3 +27,27 @@
 .airquality-container ul li span {
   font-weight: bold;
 }
+
+.bg-green-500 {
+  background-color: #38a169;
+}
+
+.bg-yellow-500 {
+  background-color: #ecc94b;
+}
+
+.bg-orange-500 {
+  background-color: #f6ad55;
+}
+
+.bg-red-500 {
+  background-color: #f56565;
+}
+
+.bg-purple-500 {
+  background-color: #9f7aea;
+}
+
+.bg-gray-800 {
+  background-color: #2d3748;
+}

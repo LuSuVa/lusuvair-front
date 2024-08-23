@@ -1,7 +1,13 @@
 <div class="flex justify-center">
-  <div class="flex justify-center bg-violet-200 rounded-full p-4 gap-4">
-    <select class="bg-transparent" [(ngModel)]="research">
-      <option value="" disabled selected>Choisissez une comune</option>
+  <div
+    class="flex justify-center items-center bg-violet-200 rounded-full p-4 w-[30%] gap-x-4"
+  >
+    <select
+      class="bg-transparent outline-none text-lg w-[90%]"
+      [(ngModel)]="research"
+      (change)="loadAirQualities()"
+    >
+      <option value="" disabled selected>Choisissez une commune</option>
       <option value="Nantes">Nantes</option>
       <option value="Angers">Angers</option>
       <option value="Le-Mans">Le-Mans</option>
@@ -10,9 +16,29 @@
       <option value="Cholet">Cholet</option>
       <option value="Rezé">Rezé</option>
     </select>
-    <button (click)="loadAirQualities()">
-      <i class="fa fa-search"></i>
-    </button>
+  </div>
+</div>
+
+<div class="mt-10">
+  <div
+    class="airquality-container mt-4 p-6 bg-white shadow rounded-lg"
+    *ngIf="airQuality"
+  >
+    <h3 class="text-2xl font-bold mb-4">
+      {{ airQuality.municipality.name }} - {{ airQuality.date }}
+    </h3>
+    <ul class="space-y-2">
+      <li>
+        AQI:
+        <span [ngClass]="getAqiColor(airQuality.aqi)">{{
+          airQuality.aqi
+        }}</span>
+      </li>
+      <li *ngFor="let particle of airQuality.particles" class="text-lg">
+        <span class="font-semibold">{{ particle.name }}:</span>
+        {{ particle.quantity }}
+      </li>
+    </ul>
   </div>
 </div>
 
@@ -33,3 +59,28 @@
     </ul>
   </div>
 </div>
+
+<!-- <div class="flex flex-col items-center justify-center mt-10" *ngIf="airQuality">
+  <h1 class="text-2xl font-bold mb-8">
+    {{ airQuality.municipality.name }} - {{ airQuality.date }}
+  </h1>
+  <div class="w-full max-w-3xl bg-white shadow-md rounded-lg p-6">
+    <div class="space-y-4">
+      <div
+        *ngFor="let particle of airQuality.particles"
+        class="flex items-center"
+      >
+        <div class="w-1/4 text-right pr-4">{{ particle.name }}</div>
+        <div class="w-3/4 bg-green-500 h-6 relative">
+          <div
+            class="absolute top-0 left-0 bg-green-700 h-6"
+            [style.width.%]="getParticlePercentage(particle.quantity)"
+          ></div>
+          <span class="absolute right-0 text-white text-xs font-bold pr-2">{{
+            particle.quantity
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
