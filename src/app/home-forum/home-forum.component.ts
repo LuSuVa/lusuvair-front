@@ -18,13 +18,21 @@ export class HomeForumComponent implements OnInit {
   isAdmin: boolean = false;
   newSubjectDescription: string = '';
   newSubjectTitle = '';
+  isLoggedIn: boolean = false;
   subjects: { title: string; content: string }[] = [];
-  constructor(private forumService: ForumsService, private router: Router) {}
+  constructor(
+    private forumService: ForumsService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.getSubjects();
+    const token = this.authService.getAuthToken();
+    if (token) {
+      this.isLoggedIn = !this.isLoggedIn;
+    }
   }
-
 
   openModal() {
     this.isModalOpen = true;
@@ -46,11 +54,11 @@ export class HomeForumComponent implements OnInit {
     }
   }
 
-  getSubjects(){
-    this.forumService.getSubject().subscribe(
-      (subjects: {title:string; content:string}[])=>{
-        this.subjects=subjects
-      }
-    )
+  getSubjects() {
+    this.forumService
+      .getSubject()
+      .subscribe((subjects: { title: string; content: string }[]) => {
+        this.subjects = subjects;
+      });
   }
 }
