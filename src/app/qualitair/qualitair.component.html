@@ -42,24 +42,6 @@
   </div>
 </div>
 
-<div class="mt-10">
-  <div
-    class="airquality-container mt-4 p-6 bg-white shadow rounded-lg"
-    *ngIf="airQuality"
-  >
-    <h3 class="text-2xl font-bold mb-4">
-      {{ airQuality.municipality.name }} - {{ airQuality.date }}
-    </h3>
-    <ul class="space-y-2">
-      <li>AQI: {{ airQuality.aqi }}</li>
-      <li *ngFor="let particle of airQuality.particles" class="text-lg">
-        <span class="font-semibold">{{ particle.name }}:</span>
-        {{ particle.quantity }}
-      </li>
-    </ul>
-  </div>
-</div>
-
 <!-- <div class="flex flex-col items-center justify-center mt-10" *ngIf="airQuality">
   <h1 class="text-2xl font-bold mb-8">
     {{ airQuality.municipality.name }} - {{ airQuality.date }}
