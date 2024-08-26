@@ -2,58 +2,77 @@ import { Component, OnInit } from '@angular/core';
 import { UserManagementService } from '../user-management.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { UserSuspendComponent } from '../user-suspend/user-suspend.component';
+import { User } from '../user.model';
+import { SubscribeManagementComponent } from '../subscribe-management/subscribe-management.component';
 
 @Component({
   selector: 'app-user-management',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, UserSuspendComponent],
   templateUrl: './user-management.component.html',
-  styleUrl: './user-management.component.css'
+  styleUrl: './user-management.component.css',
 })
-export class UserManagementComponent implements OnInit {
-  users:any[]=[]
-  isModalOpen:boolean = false
-  suspensionDays : number=0
-  constructor(private userManagementService : UserManagementService){}
+export class UserManagementComponent
+  extends SubscribeManagementComponent
+  implements OnInit
+{
+  users: User[] = [];
 
-  ngOnInit(){
-    this.loadUsers()
+  constructor(private userManagementService: UserManagementService) {
+    super();
   }
 
-  isOpen(){
-    this.isModalOpen = !this.isModalOpen
+  ngOnInit() {
+    this.loadUsers();
   }
 
-  loadUsers(){
-    this.userManagementService.getUser().subscribe(
-      (value:any[])=> {
-        this.users= value
+  loadUsers() {
+    const sub = this.userManagementService.getUser().subscribe(
+      (value: any[]) => {
+        this.users = value;
         console.log(value);
       },
-      error =>{
-        console.error('Erreur lors du chargement des utilisateurs',error)
+      (error) => {
+        console.error('Erreur lors du chargement des utilisateurs', error);
       }
     );
+
+    this.addSubscription(sub);
   }
 
-  suspendUser(userId: number) {
-    // Vérifiez que this.suspensionDays est bien défini
-    if (this.suspensionDays === undefined || this.suspensionDays === null) {
-      console.error('Le nombre de jours de suspension n\'est pas défini');
+  suspendUser({ id, days }: { id: number; days: number }) {
+    if (days === undefined || days === null) {
+      console.error("Le nombre de jours de suspension n'est pas défini");
       return;
     }
 
-    this.userManagementService.suspendUser(userId, this.suspensionDays).subscribe(
+    const sub = this.userManagementService.suspendUser(id, days).subscribe(
       (value: any) => {
         console.log('Utilisateur suspendu', value);
+        this.loadUsers();
       },
       (error: any) => {
-        console.error('Erreur lors de la suspension de l\'utilisateur', error);
+        console.error("Erreur lors de la suspension de l'utilisateur", error);
       }
     );
 
-    // Fermez le modal
-    this.isOpen();
+    this.addSubscription(sub);
   }
 
+  reintegrateUser(id: number) {
+    console.log(id);
+
+    const sub = this.userManagementService.reintegrateUser(id).subscribe(
+      (value: any) => {
+        console.log('Utilisateur plus suspendu', value);
+        this.loadUsers();
+      },
+      (error: any) => {
+        console.error("Erreur lors de la suspension de l'utilisateur", error);
+      }
+    );
+
+    this.addSubscription(sub);
+  }
 }
