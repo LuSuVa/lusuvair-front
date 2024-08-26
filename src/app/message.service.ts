@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class MessageService {
 
   constructor(private http: HttpClient) {}
 
-  sendMessage(body: { sectionId: number, message: string }) {
+  sendMessage(body: { sectionId: number, content: string }) {
     return this.http.post(`${this.url}`, body).pipe(
       tap((value: any) => {
         console.log('Message envoyé:', value);

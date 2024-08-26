@@ -22,4 +22,8 @@ export class ForumsService {
   getSubject(): Observable<{title:string, content:string}[]>{
     return this.http.get<{title:string, content:string}[]>(`${this.url}`)
   }
+
+  getMessagesById(id:number): Observable<{content :string}[]>{
+    return this.http.get<{content:string}[]>(`${this.url}/${id}`)
+  }
 }
