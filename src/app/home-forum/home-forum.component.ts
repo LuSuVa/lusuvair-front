@@ -49,6 +49,7 @@ export class HomeForumComponent implements OnInit {
       this.forumService.sendNewSubject(subjectBody).subscribe((value) => {
         this.newSubjectTitle = '';
         this.newSubjectDescription = '';
+        this.subjects.push({title: value.title, content: value.content})
         this.closeModal();
       });
     }
