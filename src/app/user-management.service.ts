@@ -12,7 +12,11 @@ export class UserManagementService {
   constructor(private http: HttpClient) {}
 
   getUser() {
-    return this.http.get<User[]>(`${this.url}`).pipe(tap((value: any) => {}));
+    return this.http.get<User[]>(`${this.url}`);
+  }
+
+  searchUsersByEmail(email: string) {
+    return this.http.get<User[]>(`${this.url}/email/${email}`);
   }
 
   suspendUser(userId: number, days: number) {

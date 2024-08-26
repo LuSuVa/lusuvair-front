@@ -18,6 +18,7 @@ export class UserManagementComponent
   implements OnInit
 {
   users: User[] = [];
+  search: string = '';
 
   constructor(private userManagementService: UserManagementService) {
     super();
@@ -39,6 +40,21 @@ export class UserManagementComponent
     );
 
     this.addSubscription(sub);
+  }
+
+  searchUsers() {
+    if (this.search && this.search.length > 3) {
+      const sub = this.userManagementService
+        .searchUsersByEmail(this.search)
+        .subscribe((value: any[]) => {
+          this.users = value;
+          console.log(value);
+        });
+
+      this.addSubscription(sub);
+    } else if (this.search.length === 0) {
+      this.loadUsers();
+    }
   }
 
   suspendUser({ id, days }: { id: number; days: number }) {
