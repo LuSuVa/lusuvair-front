@@ -18,27 +18,34 @@
     </select>
   </div>
 </div>
-<div *ngIf="research" class="space-y-8 p-14 w-[60%] mx-auto h-[90%]">
-  <div class="weather-container flex justify-center pb-60">
-    <div *ngIf="weatherData" class="weather-info pl-20 text-xl">
-      <h2 class="font-bold pb-10 pl-10">{{ weatherData.municipality.name }}</h2>
-      <p>Date: {{ weatherData.date }}</p>
-      <p>Température: {{ weatherData.temperature }}°C</p>
-      <p>Humidité: {{ weatherData.humidity }}%</p>
-      <p>Pression: {{ weatherData.atmosphericPressure }} hPa</p>
-      <p>Vent: {{ weatherData.wind }} km/h</p>
-      <p>{{ weatherData.type }}</p>
-      <p>Probabilité de pluie: {{ weatherData.probaRain }}%</p>
-      <p class="wind-direction">
-        <span
-          class="arrow"
-          [ngStyle]="{
-            transform: 'rotate(' + (weatherData.dirWind + 90) + 'deg)'
-          }"
-          >&#10148;</span
-        >
-        Direction du vent : {{ weatherData.dirWind }}°
-      </p>
+<div *ngIf="research" class="space-y-8 w-[60%] mx-auto h-[90%]">
+  <div *ngIf="weatherData" class="weather-container flex justify-center">
+    <div class="weather-info flex items-center space-x-8">
+      <div class="weather-icon text-6xl text-sky-300">
+        <fa-icon [icon]="getWeatherIcon(weatherData.type)"></fa-icon>
+      </div>
+      <div class="text-xl">
+        <h2 class="font-bold pb-10">{{ weatherData.municipality.name }}</h2>
+        <p>Date: {{ weatherData.date }}</p>
+        <p>Température: {{ weatherData.temperature }}°C</p>
+        <p>Humidité: {{ weatherData.humidity }}%</p>
+        <p>Pression: {{ weatherData.atmosphericPressure }} hPa</p>
+        <p>Probabilité de pluie: {{ weatherData.probaRain }}%</p>
+      </div>
+    </div>
+    <div class="mt-10 text-center flex items-center space-x-2">
+      <div
+        class="arrow text-6xl"
+        [ngStyle]="{
+          transform: 'rotate(' + (weatherData.dirWind + 90) + 'deg)'
+        }"
+      >
+        &#10148;
+      </div>
+      <div class="text-xl justify-start">
+        <p>Direction du vent : {{ weatherData.dirWind }}°</p>
+        <p>Vitesse: {{ weatherData.wind }} km/h</p>
+      </div>
     </div>
   </div>
 </div>
