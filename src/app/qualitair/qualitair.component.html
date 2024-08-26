@@ -19,45 +19,28 @@
   </div>
 </div>
 
-<div class="mt-10">
-  <div
-    class="airquality-container mt-4 p-6 bg-white shadow rounded-lg"
-    *ngIf="airQuality"
-  >
-    <h3 class="text-2xl font-bold mb-4">
+<div class="airquality-container mt-10 flex justify-center" *ngIf="airQuality">
+  <div class="p-6 w-[40rem]">
+    <h3
+      class="text-2xl font-bold mb-4 text-center whitespace-nowrap overflow-hidden overflow-ellipsis"
+    >
       {{ airQuality.municipality.name }} - {{ airQuality.date }}
     </h3>
-    <span [ngClass]="getAqiColor(airQuality.aqi)">{{ airQuality.aqi }}</span>
-    <ul class="space-y-2">
-      <li *ngFor="let particle of airQuality.particles" class="text-lg">
-        <span class="font-semibold">{{ particle.name }}:</span>
-        {{ particle.quantity }}
-      </li>
-    </ul>
-  </div>
-</div>
-
-<!-- <div class="flex flex-col items-center justify-center mt-10" *ngIf="airQuality">
-  <h1 class="text-2xl font-bold mb-8">
-    {{ airQuality.municipality.name }} - {{ airQuality.date }}
-  </h1>
-  <div class="w-full max-w-3xl bg-white shadow-md rounded-lg p-6">
-    <div class="space-y-4">
+    <div class="flex items-center">
       <div
-        *ngFor="let particle of airQuality.particles"
-        class="flex items-center"
+        [ngClass]="getAqiColor(airQuality.aqi)"
+        class="w-[10rem] h-[10rem] flex items-center justify-center mr-8 rounded-md"
       >
-        <div class="w-1/4 text-right pr-4">{{ particle.name }}</div>
-        <div class="w-3/4 bg-green-500 h-6 relative">
-          <div
-            class="absolute top-0 left-0 bg-green-700 h-6"
-            [style.width.%]="getParticlePercentage(particle.quantity)"
-          ></div>
-          <span class="absolute right-0 text-white text-xs font-bold pr-2">{{
-            particle.quantity
-          }}</span>
-        </div>
+        {{ airQuality.aqi }}
+      </div>
+      <div class="flex-grow text-center">
+        <ul class="space-y-2">
+          <li *ngFor="let particle of airQuality.particles" class="text-lg">
+            <span class="font-semibold">{{ particle.name }}:</span>
+            {{ particle.quantity }}
+          </li>
+        </ul>
       </div>
     </div>
   </div>
-</div> -->
+</div>

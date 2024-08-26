@@ -1,53 +1,40 @@
 .airquality-container {
   background-color: #e8ffe4;
   border: 2px solid #6aa84f;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 20px;
-  max-width: 500px;
-  margin: 0 auto;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.airquality-container h3 {
-  font-size: 1.5rem;
-  color: #2c3e50;
-  margin-bottom: 1rem;
-}
-
-.airquality-container ul {
-  list-style: none;
-  padding: 0;
-}
-
-.airquality-container ul li {
-  font-size: 1.125rem;
-  color: #34495e;
-}
-
-.airquality-container ul li span {
-  font-weight: bold;
+  padding-bottom: 5%;
+  margin: 20px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .bg-green-500 {
   background-color: #38a169;
+  border-color: #2b794f;
 }
 
 .bg-yellow-500 {
   background-color: #ecc94b;
+  border-color: #bb9f3b;
 }
 
 .bg-orange-500 {
   background-color: #f6ad55;
+  border-color: #9c6e36;
 }
 
 .bg-red-500 {
   background-color: #f56565;
+  border-color: #b34b4b;
 }
 
 .bg-purple-500 {
   background-color: #9f7aea;
+  border-color: #654f92;
 }
 
 .bg-gray-800 {
   background-color: #2d3748;
+  border-color: #1a1f29;
+  color: white;
 }
