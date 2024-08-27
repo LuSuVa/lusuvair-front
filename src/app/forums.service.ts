@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
+import { Subject } from './user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +20,11 @@ export class ForumsService {
     )
   }
 
-  getSubject(): Observable<{title:string, content:string}[]>{
-    return this.http.get<{title:string, content:string}[]>(`${this.url}`)
+  getSubjects(): Observable<Subject[]>{
+    return this.http.get<Subject[]>(`${this.url}`)
   }
 
-  getMessagesById(id:number): Observable<{content :string}[]>{
-    return this.http.get<{content:string}[]>(`${this.url}/${id}`)
+  getSubjectById(id:number): Observable<Subject>{
+    return this.http.get<Subject>(`${this.url}/${id}`)
   }
 }

@@ -57,7 +57,7 @@ export class HomeForumComponent implements OnInit {
 
   getSubjects() {
     this.forumService
-      .getSubject()
+      .getSubjects()
       .subscribe((subjects: { title: string; content: string }[]) => {
         this.subjects = subjects;
       });

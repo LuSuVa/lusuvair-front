@@ -8,24 +8,26 @@ import {
 import { MessageService } from '../message.service';
 import { CommonModule } from '@angular/common';
 import { ForumsService } from '../forums.service';
+import { AuthService } from '../auth.service';
+import { UserMessageComponent } from "../user-message/user-message.component";
+import { Subject } from '../user.model';
 
 @Component({
   selector: 'app-details-subject',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, UserMessageComponent],
   templateUrl: './details-subject.component.html',
   styleUrl: './details-subject.component.css',
 })
-export class DetailsSubjectComponent{
+export class DetailsSubjectComponent {
   messageForm: FormGroup;
-  thumbsUp: boolean = false;
-  datas: { content: string, firstName:string, lastName:string, title:string }[] = [];
-
+  subject ?: Subject
 
   constructor(
     private formBuilder: FormBuilder,
     private messageService: MessageService,
-    private forumService: ForumsService
+    private forumService: ForumsService,
+    private authService: AuthService
   ) {
     this.messageForm = this.formBuilder.group({
       message: '',
@@ -33,25 +35,13 @@ export class DetailsSubjectComponent{
   }
 
   ngOnInit() {
-    const subjectId=1
-    this.getMessage(subjectId);
+    const subjectId = 1;
+    this.getSubject(subjectId);
   }
 
-  onClickLike(id: number) {
-    this.messageService.like(id).subscribe((response) => {
-      this.thumbsUp = !this.thumbsUp;
-    });
-  }
-
-  getMessage(id: number) {
-    this.forumService.getMessagesById(id).subscribe((value: any) => {
-      // Si 'value.messages' contient les messages et que 'value' contient les informations utilisateur
-      this.datas = value.messages.map((message: any) => ({
-        title: value.title,
-        content: message.content,
-        firstName: message.user.firstName,
-        lastName: message.user.lastName
-      }));
+  getSubject(id: number) {
+    this.forumService.getSubjectById(id).subscribe((value: Subject) => {
+      this.subject= value
     });
   }
 
@@ -66,13 +56,8 @@ export class DetailsSubjectComponent{
 
       this.messageService.sendMessage(messageData).subscribe(
         (response) => {
-          console.log('Message envoyé avec succès', response);
+          this.subject?.messages.push(response)
           this.messageForm.reset();
-          this.datas.push({
-            title:response.title,
-            content: response.content,
-            firstName: response.user.firstName,
-            lastName: response.user.lastName})
         },
         (error) => {
           console.error("Erreur lors de l'envoi du message", error);
