@@ -32,8 +32,8 @@ export class UserMessageComponent extends SubscribeManagementComponent {
     this.thumbsUp = this.message?.likeUserIds.includes(this.userId) || false;
   }
 
-  getUserId() {
-    this.userId = parseInt(this.authService.getAuthId());
+  isUserAdmin() {
+    return this.authService.getAuthRole().includes('ROLE_ADMIN');
   }
 
   onClickLike() {
