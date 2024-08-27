@@ -48,8 +48,8 @@
 
 <div class="space-y-8 pr-80 pl-80 pt-14">
   <!-- Sujet 1 -->
+  @for(subject of subjects; track $index){
   <div
-    *ngFor="let subject of subjects"
     class="border p-4 shadow-md flex justify-between items-end bg-green-100 rounded-3xl"
   >
     <div>
@@ -57,10 +57,11 @@
       <p class="mt-5 ml-28 text-gray-600">{{ subject.content }}</p>
     </div>
     <button
-      [routerLink]="['/detailsSubject']"
+      [routerLink]="['/subject', subject.id]"
       class="text-blue-500 hover:text-blue-700 font-bold text-3xl pr-3"
     >
       +
     </button>
   </div>
+  }
 </div>

@@ -1,62 +1,73 @@
-import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { MessageService } from '../message.service';
-import { CommonModule } from '@angular/common';
 import { ForumsService } from '../forums.service';
-import { AuthService } from '../auth.service';
-import { UserMessageComponent } from "../user-message/user-message.component";
+import { MessageService } from '../message.service';
+import { SubscribeManagementComponent } from '../subscribe-management/subscribe-management.component';
+import { UserMessageComponent } from '../user-message/user-message.component';
 import { Subject } from '../user.model';
 
 @Component({
   selector: 'app-details-subject',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, UserMessageComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    UserMessageComponent,
+  ],
   templateUrl: './details-subject.component.html',
   styleUrl: './details-subject.component.css',
 })
-export class DetailsSubjectComponent {
+export class DetailsSubjectComponent extends SubscribeManagementComponent {
   messageForm: FormGroup;
-  subject ?: Subject
+  subject?: Subject;
 
   constructor(
     private formBuilder: FormBuilder,
     private messageService: MessageService,
-    private forumService: ForumsService,
-    private authService: AuthService
+    private forumService: ForumsService
   ) {
+    super();
     this.messageForm = this.formBuilder.group({
       message: '',
     });
   }
 
-  ngOnInit() {
-    const subjectId = 1;
-    this.getSubject(subjectId);
+  @Input()
+  set id(id: number) {
+    const sub = this.forumService
+      .getSubjectById(id)
+      .subscribe((value: Subject) => (this.subject = value));
+
+    this.addSubscription(sub);
   }
 
   getSubject(id: number) {
-    this.forumService.getSubjectById(id).subscribe((value: Subject) => {
-      this.subject= value
+    const sub = this.forumService.getSubjectById(id).subscribe((value: Subject) => {
+      this.subject = value;
     });
+
+    this.addSubscription(sub);
   }
 
   submitMessage() {
     const messageContent = this.messageForm.get('message')?.value;
 
-    if (messageContent) {
+    if (messageContent && this.subject) {
       const messageData = {
-        sectionId: 1, // Remplacez par l'ID du sujet ou autre identifiant pertinent
+        sectionId: this.subject.id,
         content: messageContent,
       };
 
       this.messageService.sendMessage(messageData).subscribe(
         (response) => {
-          this.subject?.messages.push(response)
+          this.subject?.messages.push(response);
           this.messageForm.reset();
         },
         (error) => {

@@ -12,8 +12,8 @@ export class ForumsService {
 
   constructor(private http: HttpClient) {}
 
-  sendNewSubject(body:{title: string, content:string}){
-    return this.http.post(`${this.url}`,body).pipe(
+  sendNewSubject(body:{title: string, content:string}): Observable<Subject>{
+    return this.http.post<Subject>(`${this.url}`,body).pipe(
       tap((value: any)=>{
         console.log(value);
       })

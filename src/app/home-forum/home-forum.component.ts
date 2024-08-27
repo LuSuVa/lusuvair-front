@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MessageService } from '../message.service';
 import { ForumsService } from '../forums.service';
+import { Subject } from '../user.model';
 
 @Component({
   selector: 'app-home-forum',
@@ -19,7 +20,7 @@ export class HomeForumComponent implements OnInit {
   newSubjectDescription: string = '';
   newSubjectTitle = '';
   isLoggedIn: boolean = false;
-  subjects: { title: string; content: string }[] = [];
+  subjects: Subject[] = [];
   constructor(
     private forumService: ForumsService,
     private authService: AuthService,
@@ -46,20 +47,20 @@ export class HomeForumComponent implements OnInit {
       content: this.newSubjectDescription || '',
     };
     if (this.newSubjectTitle && this.newSubjectDescription) {
-      this.forumService.sendNewSubject(subjectBody).subscribe((value) => {
-        this.newSubjectTitle = '';
-        this.newSubjectDescription = '';
-        this.subjects.push({title: value.title, content: value.content})
-        this.closeModal();
-      });
+      this.forumService
+        .sendNewSubject(subjectBody)
+        .subscribe((value: Subject) => {
+          this.newSubjectTitle = '';
+          this.newSubjectDescription = '';
+          this.subjects.push(value);
+          this.closeModal();
+        });
     }
   }
 
   getSubjects() {
-    this.forumService
-      .getSubjects()
-      .subscribe((subjects: { title: string; content: string }[]) => {
-        this.subjects = subjects;
-      });
+    this.forumService.getSubjects().subscribe((subjects: Subject[]) => {
+      this.subjects = subjects;
+    });
   }
 }
