@@ -6,14 +6,28 @@ import { WeatherComponent } from './weather/weather.component';
 import { DetailsSubjectComponent } from './details-subject/details-subject.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { QualitairComponent } from './qualitair/qualitair.component';
+import { userAuthGuard } from './user-auth.guard';
+import { adminAuthGuard } from './admin-auth.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'books', pathMatch: 'full' },
+  { path: '', redirectTo: 'forum', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forum', component: HomeForumComponent },
   { path: 'detailsSubject', component: DetailsSubjectComponent },
-  { path: 'weather', component: WeatherComponent },
-  { path: 'userManagement', component: UserManagementComponent },
-  { path: 'airQuality', component: QualitairComponent },
+  {
+    path: 'weather',
+    component: WeatherComponent,
+    canActivate: [userAuthGuard],
+  },
+  {
+    path: 'userManagement',
+    component: UserManagementComponent,
+    canActivate: [adminAuthGuard],
+  },
+  {
+    path: 'airQuality',
+    component: QualitairComponent,
+    canActivate: [userAuthGuard],
+  },
 ];
