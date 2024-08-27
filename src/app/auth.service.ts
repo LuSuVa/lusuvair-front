@@ -40,6 +40,14 @@ export class AuthService {
     localStorage.setItem('role', JSON.stringify(role));
   }
 
+  getAuthId(): string {
+    return localStorage.getItem('user-id') || '';
+  }
+
+  setAuthId(id: string) {
+    localStorage.setItem('user-id', id);
+  }
+
   register(body: {
     email: string;
     password: string;
@@ -51,6 +59,12 @@ export class AuthService {
         if (value.token) {
           this.setAuthToken(value.token);
         }
+        if(value.role){
+          this.setAuthRole(value.role)
+        }
+        if (value.id) {
+          this.setAuthId(value.id);
+        }
       })
     );
   }
@@ -60,13 +74,14 @@ export class AuthService {
 
       tap((value: any) => {
         if (value.token) {
-          console.log(value.role);
-
           this.setAuthToken(value.token);
         }
-        console.log(value)
         if(value.role){
           this.setAuthRole(value.role)
+        }
+        if (value.id) {
+          this.setAuthId(value.id);
+          console.log(value.id);
         }
 
       })
