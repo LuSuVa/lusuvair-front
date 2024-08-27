@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { User } from './user.model';
 
 @Injectable({
@@ -19,19 +19,11 @@ export class UserManagementService {
     return this.http.get<User[]>(`${this.url}/email/${email}`);
   }
 
-  suspendUser(userId: number, days: number) {
-    return this.http.patch(`${this.url}/${userId}/suspend/${days}`, {}).pipe(
-      tap((value: any) => {
-        console.log('Message envoyé:', value);
-      })
-    );
+  suspendUser(userId: number, days: number): Observable<User> {
+    return this.http.patch<User>(`${this.url}/${userId}/suspend/${days}`, {});
   }
 
-  reintegrateUser(userId: number) {
-    return this.http.patch(`${this.url}/${userId}/unsuspend`, {}).pipe(
-      tap((value: any) => {
-        console.log('Message envoyé:', value);
-      })
-    );
+  reintegrateUser(userId: number): Observable<User> {
+    return this.http.patch<User>(`${this.url}/${userId}/unsuspend`, {});
   }
 }

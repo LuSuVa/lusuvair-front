@@ -14,6 +14,7 @@ import {
   faCloudMeatball,
   faCloudSun,
 } from '@fortawesome/free-solid-svg-icons';
+import { SubscribeManagementComponent } from '../subscribe-management/subscribe-management.component';
 
 @Component({
   selector: 'app-weather',
@@ -22,7 +23,10 @@ import {
   styleUrls: ['./weather.component.css'],
   imports: [FormsModule, CommonModule, FontAwesomeModule],
 })
-export class WeatherComponent implements OnInit {
+export class WeatherComponent
+  extends SubscribeManagementComponent
+  implements OnInit
+{
   weatherData: any;
   research: string = '';
 
@@ -36,18 +40,19 @@ export class WeatherComponent implements OnInit {
   faCloudMeatball = faCloudMeatball;
   faCloudSun = faCloudSun;
 
-  constructor(private weatherService: WeatherService) {}
+  constructor(private weatherService: WeatherService) {
+    super();
+  }
 
   ngOnInit(): void {}
 
   searchWeather() {
     if (this.research) {
-      this.weatherService.getWeatherByMunicipalityName(this.research).subscribe(
-        (data) => (this.weatherData = data),
-        (error) => {
-          console.error('Error fetching weather data', error);
-        }
-      );
+      const sub = this.weatherService
+        .getWeatherByMunicipalityName(this.research)
+        .subscribe((data) => (this.weatherData = data));
+
+      this.addSubscription(sub);
     }
   }
 

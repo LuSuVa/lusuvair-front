@@ -27,3 +27,8 @@ export interface Subject {
   messages: Message[];
   user: User;
 }
+
+export interface LikedDisliked {
+  isLiked: boolean;
+  isDisliked: boolean;
+}

@@ -29,15 +29,11 @@ export class UserManagementComponent
   }
 
   loadUsers() {
-    const sub = this.userManagementService.getUser().subscribe(
-      (value: any[]) => {
+    const sub = this.userManagementService
+      .getUser()
+      .subscribe((value: any[]) => {
         this.users = value;
-        console.log(value);
-      },
-      (error) => {
-        console.error('Erreur lors du chargement des utilisateurs', error);
-      }
-    );
+      });
 
     this.addSubscription(sub);
   }
@@ -48,7 +44,6 @@ export class UserManagementComponent
         .searchUsersByEmail(this.search)
         .subscribe((value: any[]) => {
           this.users = value;
-          console.log(value);
         });
 
       this.addSubscription(sub);
@@ -63,31 +58,21 @@ export class UserManagementComponent
       return;
     }
 
-    const sub = this.userManagementService.suspendUser(id, days).subscribe(
-      (value: any) => {
-        console.log('Utilisateur suspendu', value);
+    const sub = this.userManagementService
+      .suspendUser(id, days)
+      .subscribe((value: any) => {
         this.loadUsers();
-      },
-      (error: any) => {
-        console.error("Erreur lors de la suspension de l'utilisateur", error);
-      }
-    );
+      });
 
     this.addSubscription(sub);
   }
 
   reintegrateUser(id: number) {
-    console.log(id);
-
-    const sub = this.userManagementService.reintegrateUser(id).subscribe(
-      (value: any) => {
-        console.log('Utilisateur plus suspendu', value);
+    const sub = this.userManagementService
+      .reintegrateUser(id)
+      .subscribe((value: any) => {
         this.loadUsers();
-      },
-      (error: any) => {
-        console.error("Erreur lors de la suspension de l'utilisateur", error);
-      }
-    );
+      });
 
     this.addSubscription(sub);
   }

@@ -2,33 +2,41 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { SubscribeManagementComponent } from '../subscribe-management/subscribe-management.component';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
   imports: [RouterLink, CommonModule, RouterModule],
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+  styleUrls: ['./layout.component.css'],
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent
+  extends SubscribeManagementComponent
+  implements OnInit
+{
   isLoggedIn: boolean = false;
-  isAdmin: boolean = false
+  isAdmin: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
-
-  ngOnInit() {
-    this.router.events.subscribe(() => {
-      this.checkLoginStatus();
-      this.checkRole(); // Vous pouvez combiner les deux vérifications
-    });
+  constructor(private authService: AuthService, private router: Router) {
+    super();
   }
 
-  checkRole(){
-    const role= this.authService.getAuthRole()
-    if(role.includes('ROLE_ADMIN')){
-      this.isAdmin = true
-    } else{
-      this.isAdmin = false
+  ngOnInit() {
+    const sub = this.router.events.subscribe(() => {
+      this.checkLoginStatus();
+      this.checkRole();
+    });
+    
+    this.addSubscription(sub);
+  }
+
+  checkRole() {
+    const role = this.authService.getAuthRole();
+    if (role.includes('ROLE_ADMIN')) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
     }
   }
   checkLoginStatus() {
@@ -40,11 +48,11 @@ export class LayoutComponent implements OnInit {
     }
   }
 
-logout() {
-  this.authService.setAuthToken('');
-  this.authService.setAuthRole([]); // Réinitialiser les rôles à un tableau vide
-  this.isLoggedIn = false;
-  this.checkRole(); // Re-vérifier les rôles après déconnexion
-  this.router.navigate(['/login']);
-}
+  logout() {
+    this.authService.setAuthToken('');
+    this.authService.setAuthRole([]); // Réinitialiser les rôles à un tableau vide
+    this.isLoggedIn = false;
+    this.checkRole(); // Re-vérifier les rôles après déconnexion
+    this.router.navigate(['/login']);
+  }
 }

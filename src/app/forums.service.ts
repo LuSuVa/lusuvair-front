@@ -4,27 +4,25 @@ import { Observable, tap } from 'rxjs';
 import { Subject } from './user.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ForumsService {
-
   private url = 'http://localhost:8080/sections';
 
   constructor(private http: HttpClient) {}
 
-  sendNewSubject(body:{title: string, content:string}): Observable<Subject>{
-    return this.http.post<Subject>(`${this.url}`,body).pipe(
-      tap((value: any)=>{
-        console.log(value);
-      })
-    )
+  sendNewSubject(body: {
+    title: string;
+    content: string;
+  }): Observable<Subject> {
+    return this.http.post<Subject>(`${this.url}`, body);
   }
 
-  getSubjects(): Observable<Subject[]>{
-    return this.http.get<Subject[]>(`${this.url}`)
+  getSubjects(): Observable<Subject[]> {
+    return this.http.get<Subject[]>(`${this.url}`);
   }
 
-  getSubjectById(id:number): Observable<Subject>{
-    return this.http.get<Subject>(`${this.url}/${id}`)
+  getSubjectById(id: number): Observable<Subject> {
+    return this.http.get<Subject>(`${this.url}/${id}`);
   }
 }

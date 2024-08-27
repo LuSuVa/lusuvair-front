@@ -7,6 +7,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SubscribeManagementComponent } from '../subscribe-management/subscribe-management.component';
 
 @Component({
   selector: 'app-qualitair',
@@ -15,21 +16,28 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   templateUrl: './qualitair.component.html',
   styleUrl: './qualitair.component.css',
 })
-export class QualitairComponent implements OnInit {
+export class QualitairComponent
+  extends SubscribeManagementComponent
+  implements OnInit
+{
   airQuality: AirQualityResponse | null = null;
   research: string = '';
 
-  constructor(private qualitairService: QualitairService) {}
+  constructor(private qualitairService: QualitairService) {
+    super();
+  }
 
   ngOnInit(): void {}
 
   loadAirQualities(): void {
     if (this.research) {
-      this.qualitairService
+      const sub = this.qualitairService
         .getByMunicipalityName(this.research)
         .subscribe((data: AirQualityResponse) => {
           this.airQuality = data;
         });
+
+      this.addSubscription(sub);
     }
   }
 

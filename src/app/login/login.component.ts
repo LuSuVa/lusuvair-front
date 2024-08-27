@@ -48,6 +48,5 @@ export class LoginComponent extends SubscribeManagementComponent {
       this.router.navigateByUrl('/forum');
     });
     this.addSubscription(subscription);
-    // this.router.navigate(['/forum']);
   }
 }

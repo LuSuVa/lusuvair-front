@@ -16,7 +16,7 @@ export class AuthService {
 
   private checkLoginStatus() {
     const token = this.getAuthToken();
-    const isUserLoggedIn = token !== null
+    const isUserLoggedIn = token !== null;
     this.loggedIn.next(isUserLoggedIn);
   }
 
@@ -29,13 +29,13 @@ export class AuthService {
   }
 
   getAuthRole(): string[] {
-    const role = localStorage.getItem('role')
-    return role ? JSON.parse(role) : []
+    const role = localStorage.getItem('role');
+    return role ? JSON.parse(role) : [];
   }
 
-  setAuthRole(role: string[] |string) {
-    if (typeof role === 'string'){
-      role = role.split(',')
+  setAuthRole(role: string[] | string) {
+    if (typeof role === 'string') {
+      role = role.split(',');
     }
     localStorage.setItem('role', JSON.stringify(role));
   }
@@ -59,8 +59,8 @@ export class AuthService {
         if (value.token) {
           this.setAuthToken(value.token);
         }
-        if(value.role){
-          this.setAuthRole(value.role)
+        if (value.role) {
+          this.setAuthRole(value.role);
         }
         if (value.id) {
           this.setAuthId(value.id);
@@ -71,19 +71,16 @@ export class AuthService {
 
   login(body: { email: string; password: string }) {
     return this.http.post(`${this.url}/login`, body).pipe(
-
       tap((value: any) => {
         if (value.token) {
           this.setAuthToken(value.token);
         }
-        if(value.role){
-          this.setAuthRole(value.role)
+        if (value.role) {
+          this.setAuthRole(value.role);
         }
         if (value.id) {
           this.setAuthId(value.id);
-          console.log(value.id);
         }
-
       })
     );
   }
