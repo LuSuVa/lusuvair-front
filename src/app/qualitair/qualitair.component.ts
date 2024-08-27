@@ -60,4 +60,28 @@ export class QualitairComponent implements OnInit {
       return 'bg-gray-800';
     }
   }
+
+  private pollutants = ['no2', 'o3', 'pm10', 'pm25', 'so2'];
+
+  getPollutants(): Particle[] {
+    if (!this.airQuality || !this.airQuality.particles) return [];
+
+    const particles = this.airQuality.particles.slice(0, 5);
+
+    if (particles.length === 5 && particles[4].name === 'so2') {
+      return particles;
+    } else {
+      return particles.slice(0, 4);
+    }
+  }
+
+  getNonPollutants(): Particle[] {
+    if (!this.airQuality) {
+      return [];
+    }
+
+    return this.airQuality.particles.filter(
+      (particle: Particle) => !this.pollutants.includes(particle.name)
+    );
+  }
 }

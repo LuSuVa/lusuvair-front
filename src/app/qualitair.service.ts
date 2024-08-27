@@ -21,6 +21,7 @@ export interface Particle {
   id: number;
   name: string;
   quantity: number;
+  unit: string;
 }
 
 export interface Municipality {
