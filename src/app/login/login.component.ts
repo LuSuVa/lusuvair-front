@@ -4,7 +4,7 @@ import {
   NonNullableFormBuilder,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { SubscribeManagementComponent } from '../subscribe-management/subscribe-management.component';
 

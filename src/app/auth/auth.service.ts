@@ -16,7 +16,7 @@ export class AuthService {
 
   private checkLoginStatus() {
     const token = this.getAuthToken();
-    const isUserLoggedIn = token !== null;
+    const isUserLoggedIn = !!token;
     this.loggedIn.next(isUserLoggedIn);
   }
 

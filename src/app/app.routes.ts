@@ -6,7 +6,7 @@ import { WeatherComponent } from './weather/weather.component';
 import { DetailsSubjectComponent } from './details-subject/details-subject.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { QualitairComponent } from './qualitair/qualitair.component';
-import { userAuthGuard } from './user-auth.guard';
+import { userAuthGuard } from './auth/user-auth.guard';
 import { adminAuthGuard } from './admin-auth.guard';
 
 export const routes: Routes = [

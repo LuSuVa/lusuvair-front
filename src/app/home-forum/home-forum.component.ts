@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth/auth.service';
 import { ForumsService } from '../forums.service';
 import { Subject } from '../user.model';
 import { SubscribeManagementComponent } from '../subscribe-management/subscribe-management.component';

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router, RouterModule } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth/auth.service';
 import { SubscribeManagementComponent } from '../subscribe-management/subscribe-management.component';
 
 @Component({
@@ -27,7 +27,7 @@ export class LayoutComponent
       this.checkLoginStatus();
       this.checkRole();
     });
-    
+
     this.addSubscription(sub);
   }
 

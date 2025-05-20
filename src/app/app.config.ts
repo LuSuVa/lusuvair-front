@@ -3,7 +3,7 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { tokenInterceptor } from './interceptors';
+import { tokenInterceptor } from './auth/interceptors';
 
 export const appConfig: ApplicationConfig = {
   providers: [

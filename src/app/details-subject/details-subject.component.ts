@@ -48,13 +48,13 @@ export class DetailsSubjectComponent extends SubscribeManagementComponent {
     this.addSubscription(sub);
   }
 
-  getSubject(id: number) {
-    const sub = this.forumService.getSubjectById(id).subscribe((value: Subject) => {
-      this.subject = value;
-    });
+  // getSubject(id: number) {
+  //   const sub = this.forumService.getSubjectById(id).subscribe((value: Subject) => {
+  //     this.subject = value;
+  //   });
 
-    this.addSubscription(sub);
-  }
+  //   this.addSubscription(sub);
+  // }
 
   submitMessage() {
     const messageContent = this.messageForm.get('message')?.value;

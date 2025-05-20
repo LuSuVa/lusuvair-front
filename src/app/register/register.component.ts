@@ -4,7 +4,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth/auth.service';
 import { SubscribeManagementComponent } from '../subscribe-management/subscribe-management.component';
 import { Router } from '@angular/router';
 
