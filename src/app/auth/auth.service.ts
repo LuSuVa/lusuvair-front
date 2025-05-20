@@ -10,6 +10,7 @@ export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   loggedIn$ = this.loggedIn.asObservable();
 
+
   constructor(private http: HttpClient) {
     this.checkLoginStatus();
   }

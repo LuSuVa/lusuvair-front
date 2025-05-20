@@ -15,6 +15,10 @@ export class UserManagementService {
     return this.http.get<User[]>(`${this.url}`);
   }
 
+  getAllMail(): Observable<string[]>{
+    return this.http.get<string[]>(`${this.url}/getEmails`)
+  }
+
   searchUsersByEmail(email: string) {
     return this.http.get<User[]>(`${this.url}/email/${email}`);
   }
@@ -26,4 +30,5 @@ export class UserManagementService {
   reintegrateUser(userId: number): Observable<User> {
     return this.http.patch<User>(`${this.url}/${userId}/unsuspend`, {});
   }
+
 }
