@@ -20,6 +20,7 @@ export class LoginComponent extends SubscribeManagementComponent {
     email: ['', [Validators.email, Validators.required]],
     password: ['', Validators.required],
   });
+  loginError: string | null = null;
 
   constructor(
     private formBuilder: NonNullableFormBuilder,
@@ -44,8 +45,18 @@ export class LoginComponent extends SubscribeManagementComponent {
       email: this.loginForm.value.email || '',
       password: this.loginForm.value.password || '',
     };
-    const subscription = this.authService.login(loginBody).subscribe(() => {
+    const subscription = this.authService.login(loginBody).subscribe( {
+      next: () => {
+        this.loginError = null;
       this.router.navigateByUrl('/forum');
+      },
+      error:(error)=>{
+        if (error.status === 401 || 403) {
+        this.loginError = 'Email ou mot de passe incorrect.';
+      } else {
+        this.loginError = 'Une erreur est survenue. Veuillez réessayer plus tard.';
+      }
+      }
     });
     this.addSubscription(subscription);
   }
