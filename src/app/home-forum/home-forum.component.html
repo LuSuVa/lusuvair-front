@@ -18,16 +18,31 @@
       type="text"
       class="border p-2 w-full mb-4"
       [(ngModel)]="newSubjectTitle"
+      #titleInput="ngModel"
+      required
       placeholder="Titre"
     />
+    <div
+      *ngIf="titleInput.invalid && titleInput.touched"
+      class="text-red-600 text-sm mb-4"
+    >
+      Le titre est requis.
+    </div>
 
     <label class="block mb-2 font-semibold">Description :</label>
     <textarea
       class="border p-2 w-full mb-4"
       [(ngModel)]="newSubjectDescription"
       placeholder="Description"
+      #descriptionInput="ngModel"
+      required
     ></textarea>
-
+    <div
+      *ngIf="descriptionInput.invalid && titleInput.touched"
+      class="text-red-600 text-sm mb-4"
+    >
+      Une description est requise.
+    </div>
     <div class="flex justify-end">
       <button
         (click)="closeModal()"
