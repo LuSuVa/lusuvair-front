@@ -15,7 +15,7 @@
       [disabled]="user?.suspended"
       class="bg-red-500 text-white px-4 py-2 rounded-md disabled:bg-slate-500"
     >
-      Supprimer
+      Suspendre
     </button>
     <!-- modal supprimer -->
     @if(isModalOpen){
@@ -28,10 +28,11 @@
           <input
             [(ngModel)]="suspensionDays"
             name="suspensionDays"
-            type="text"
+            type="number"
             class="border p-2 w-full mb-4"
           />
           <button
+            type="button"
             (click)="isOpen()"
             class="bg-gray-500 text-white p-2 rounded-md mr-2"
           >
